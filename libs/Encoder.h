@@ -1,17 +1,22 @@
 /// @file Encoder.h
 /**
-* 
+*
 * @author: Cesar Angeles
 * @date:  09/2021
 * @brief Module API dedicated to create, manage and encode text messages.
-* Mainly used to create text frames that have to be encoded for encryption, network connections, etc. 
+* Mainly used to create text frames that have to be encoded for encryption, network connections, etc.
 */
 
 #ifndef Encoder_H
-#define Encoder_H 
+#define Encoder_H
 /**
  * Give an error code IDE to test for encoding success or failure
- */ 
+ */
+ struct _frame{
+   char *code;
+   size_t length;
+ };
+
 typedef enum{
     FALSE, ///< Error code when an Encoder process was not completed
     TRUE ///< Error code when an Encoder process was successful.
@@ -22,37 +27,38 @@ typedef enum{
 */
 typedef struct _frame* Message;
 /**
- * Constructs a new message container with a given string. 
+ * Constructs a new message container with a given string.
  * If message = NULL - then an empty container is returned.
- * 
- * @param[in] message to be stored within the container.  
+ *
+ * @param[in] message to be stored within the container.
  * @param[out] Message created container reference.
- */ 
-Message newMessageContainer(char* message);
+ */
+Message newMessage(char* message);
 /**
  * Sets a particular string message to a Message container module.
- * 
- * @param[in] frame objective to modify. 
+ *
+ * @param[in] frame objective to modify.
  * @param[in] string to be set
- * 
+ *
  * @returns ERROR code. TRUE if was successfully set. FALSE otherwise.
- */ 
+ */
 ERROR setMessage(Message frame, char* string);
 /**
- * Returns a given char* reference to the string within a frame object. 
- * 
+ * Returns a given char* reference to the string within a frame object.
+ *
  * @param[in] frame object to be analised.
  * @param[out] message starting pointer.
- */ 
+ */
 char* getMessage(Message frame);
 /**
- * Encodes a given message contained within a frame by an offset. 
- * 
+ * Encodes a given message contained within a frame by an offset.
+ *
  * @param[in] frame object whose string is to be encoded.
  * @param[in] offset type encoding.
- * 
+ *
  * @returns ERROR CODE.
- */ 
+ */
 ERROR encodeMessage(Message frame, size_t offset);
+ERROR Ascii(int code[], size_t offset, size_t size);
 
 #endif
